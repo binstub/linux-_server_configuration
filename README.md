@@ -1,7 +1,10 @@
 # Linux Server Configuration    
-This project is to configure a Linux virtual machine so we can publish any web application and access it using a public IP [Item Catalog project](https://github.com/binstub/Item_Catalog).
+This project is to configure a Linux virtual machine so we can publish [Item Catalog](https://github.com/binstub/item_catalog).
 
-IP Address : http://3.1.204.125/
+- IP Address : 3.1.204.125
+- SSH Port : 2200
+- Host Name : 3.1.204.125.xip.io
++ URL to Item Catelog : http://3.1.204.125/catalog
 
 ## Task 1 - Get Your Server
 1. Start a new Ubuntu Linux server instance on [Amazon Lightsail](https://aws.amazon.com/lightsail/)
@@ -98,7 +101,7 @@ IP Address : http://3.1.204.125/
     + Configure Apache to handle requests using the WSGI module
     `sudo nano /etc/apache2/sites-enabled/000-default.conf`
 
-    + Add `WSGIScriptAlias / /var/www/catalog/catalog.wsgi` before `</VirtualHost>` closing line
+    + Add `WSGIScriptAlias / /var/www/catalog/itemcatalog.wsgi` before `</VirtualHost>` closing line
 
 3. Install a Virtual Environment
     + Install pip
@@ -158,11 +161,14 @@ IP Address : http://3.1.204.125/
     logging.basicConfig(stream=sys.stderr)
     sys.path.insert(0,"/var/www/catalog")
     from item_catalog import app as application
-    application.secret_key = 'super_secret_key'
     ```
     Save the changes and exit     
 
-3.  Initialize DB tables
+3.  + Copy your main project file (application.py) into the init.py file `mv application.py __init__.py`
+    + Change all references to client_secrets.json as /var/www/catalog/item_catalog/client_secrets.json
+    Note: Make sure client_secret.json has update info after adding server to the list
+
+4.  Initialize DB tables
    + Change the all `create_engine` lines to in python files to
      create_engine("postgresql://catalog:catalog@localhost/itemcatalog")
      Run the following commands
@@ -174,22 +180,23 @@ IP Address : http://3.1.204.125/
      ```
    + Add the servers domain name to the authorized Javascript origins and the allowed forwarding urls in the Google’s Developer Console.    
 
-4. Configure and enable virtual host
+5. Configure and enable virtual host
     `sudo nano /etc/apache2/sites-available/catalog.conf`
     and add this code:
-    ``` <VirtualHost *:80>
+    ``` 
+    <VirtualHost *:80>
        ServerName 3.1.204.125
-   ServerAdmin gbindu08@gmail.com
-   ServerAlias 3.1.204.125
-   WSGIScriptAlias / /var/www/catalog/itemcatalog.wsgi
-   <Directory /var/www/catalog/item_catalog/>
-       Order allow,deny
-       Allow from all
-   </Directory>
+       ServerAdmin gbindu08@gmail.com
+       ServerAlias 3.1.204.125
+       WSGIScriptAlias / /var/www/catalog/itemcatalog.wsgi
+       <Directory /var/www/catalog/item_catalog/>
+           Order allow,deny
+           Allow from all
+       </Directory>
    
-   ErrorLog ${APACHE_LOG_DIR}/error.log
-   LogLevel warn
-   CustomLog ${APACHE_LOG_DIR}/access.log combined
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        LogLevel warn
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
     </VirtualHost>
     ```
     Save file and exit
