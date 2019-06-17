@@ -178,22 +178,18 @@ IP Address : http://3.1.204.125/
     `sudo nano /etc/apache2/sites-available/catalog.conf`
     and add this code:
     ``` <VirtualHost *:80>
-       ServerName YOUR_PUBLIC_IP_ADDRESS
-       ServerAdmin admin@YOUR_PUBLIC_IP_ADDRESS
-       ServerAlias YOUR_HOST_NAME
-       WSGIScriptAlias / /var/www/catalog/catalog.wsgi
-       <Directory /var/www/catalog/item_catalog/>
-           Order allow,deny
-           Allow from all
-       </Directory>
-       Alias /static /var/www/catalog/item_catalog/static
-       <Directory /var/www/catalog/item_catalog/static/>
-           Order allow,deny
-           Allow from all
-       </Directory>
-       ErrorLog ${APACHE_LOG_DIR}/error.log
-       LogLevel warn
-       CustomLog ${APACHE_LOG_DIR}/access.log combined
+       ServerName 3.1.204.125
+   ServerAdmin gbindu08@gmail.com
+   ServerAlias 3.1.204.125
+   WSGIScriptAlias / /var/www/catalog/itemcatalog.wsgi
+   <Directory /var/www/catalog/item_catalog/>
+       Order allow,deny
+       Allow from all
+   </Directory>
+   
+   ErrorLog ${APACHE_LOG_DIR}/error.log
+   LogLevel warn
+   CustomLog ${APACHE_LOG_DIR}/access.log combined
     </VirtualHost>
     ```
     Save file and exit
