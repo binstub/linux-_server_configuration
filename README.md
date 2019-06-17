@@ -1,6 +1,8 @@
 # Linux Server Configuration    
 This project is to configure a Linux virtual machine so we can publish any web application and access it using a public IP [Item Catalog project](https://github.com/binstub/Item_Catalog).
 
+IP Address : http://3.1.204.125/
+
 ## Task 1 - Get Your Server
 1. Start a new Ubuntu Linux server instance on [Amazon Lightsail](https://aws.amazon.com/lightsail/)
 
