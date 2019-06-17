@@ -209,3 +209,15 @@ This project is to configure a Linux virtual machine so we can publish [Item Cat
     + `sudo nano .htaccess`
     + Add `RedirectMatch 404 /\.git`
     + Save file and exit
+
+
+
+## Author
+ 
+ Bindu Govindaiah
+
+## References
+https://www.postgresql.org/docs/9.5/auth-pg-hba-conf.html
+https://serverfault.com/questions/262751/update-ubuntu-10-04/262773#262773
+https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-ubuntu-vps
+https://www.digitalocean.com/community/tutorials/how-to-set-up-an-apache-mysql-and-python-lamp-server-without-frameworks-on-ubuntu-14-04
